@@ -1,6 +1,7 @@
 package com.zzt.daily.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -10,7 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class PagesController {
 
     @GetMapping("/")
-    public String home() {
+    public String home(Model model) {
+        model.addAttribute("name", "苏樱文");
         return "pages/index";
     }
 }
