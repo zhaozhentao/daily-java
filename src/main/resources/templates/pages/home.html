@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
+    <div th:replace="layouts/head :: head"/>
 </head>
 <body>
 
-<div th:replace="layouts/header :: header"/>
+<div th:replace="layouts/nav :: nav"/>
 
 <div class="container">
     <p th:text="'Hello, ' + ${name} + '!'"/>

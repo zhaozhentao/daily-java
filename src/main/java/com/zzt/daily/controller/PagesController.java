@@ -12,7 +12,6 @@ public class PagesController {
 
     @GetMapping("/")
     public String home(Model model) {
-        model.addAttribute("name", "苏樱文");
-        return "pages/index";
+        return "pages/home";
     }
 }
