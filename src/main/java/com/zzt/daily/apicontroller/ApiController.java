@@ -13,6 +13,6 @@ public class ApiController {
 
     @GetMapping("/my")
     public String home() {
-        return "haha";
+        return "hello world";
     }
 }

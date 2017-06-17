@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+</head>
+<body>
+
+<div id="app">
+    <my></my>
+</div>
+
+<script>
+    Vue.component("my", {
+        template: '<div>A custom component!</div>'
+    });
+
+    new Vue({
+        el: "#app"
+    });
+</script>
+
+</body>
+</html>

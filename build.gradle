@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url "http://repo.spring.io/libs-snapshot" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.3.RELEASE")
@@ -10,6 +11,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'idea'
+apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
 
 idea {
@@ -32,7 +34,9 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-devtools")
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
