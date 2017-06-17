@@ -36,7 +36,6 @@ targetCompatibility = 1.8
 dependencies {
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-devtools")
 
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
 
