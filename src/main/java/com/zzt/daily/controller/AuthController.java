@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by zhaotao on 2017/6/20.
@@ -35,7 +36,7 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/oauth/github/callback", method = RequestMethod.GET)
-    public String callback(@RequestParam(value = "code") String code) {
+    public ModelAndView callback(@RequestParam(value = "code") String code) {
         Token accessToken = githubOAuthService.getAccessToken(null, new Verifier(code));
         GithubUser githubUser = githubOAuthService.getOAuthUser(accessToken);
         User user = userService.getByDriver("github", githubUser.id);
@@ -43,11 +44,18 @@ public class AuthController {
         if (user == null) {
             return userNotFound(githubUser);
         } else {
-            return "index";
+            return null;
         }
     }
 
-    private String userNotFound(GithubUser githubUser) {
-        return constants.signupUrl(githubUser);
+    private ModelAndView userNotFound(GithubUser githubUser) {
+        ModelAndView modelAndView = new ModelAndView(constants.signupUrl());
+        modelAndView.addObject("image_url", githubUser.avatar_url);
+        modelAndView.addObject("github_id", githubUser.id);
+        modelAndView.addObject("github_url", githubUser.url);
+        modelAndView.addObject("github_name", githubUser.name);
+        modelAndView.addObject("name", githubUser.name);
+        modelAndView.addObject("email", githubUser.email);
+        return modelAndView;
     }
 }
