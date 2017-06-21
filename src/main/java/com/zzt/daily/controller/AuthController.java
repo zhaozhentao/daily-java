@@ -1,10 +1,13 @@
 package com.zzt.daily.controller;
 
-import com.zzt.daily.OAuth.GithubOAuthService;
+import com.zzt.daily.OAuth.github.GithubOAuthService;
+import com.zzt.daily.OAuth.github.GithubUser;
+import com.zzt.daily.constants.Constants;
+import com.zzt.daily.mapper.User;
+import com.zzt.daily.service.UserService;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,25 +20,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class AuthController {
 
-    @Value("${oAuth.github.clientId}")
-    String githubClientId;
-
-    @Value("${oAuth.github.state}")
-    String state;
+    @Autowired
+    Constants constants;
 
     @Autowired
     GithubOAuthService githubOAuthService;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/auth/oauth")
     public String oauthLogin() {
-        return "redirect:https://github.com/login/oauth/authorize?client_id=" + githubClientId +
-            "&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth%2Fgithub%2Fcallback&state=" + state;
+        return constants.GithubRedirectUrl();
     }
 
     @RequestMapping(value = "/oauth/github/callback", method = RequestMethod.GET)
     public String callback(@RequestParam(value = "code") String code) {
         Token accessToken = githubOAuthService.getAccessToken(null, new Verifier(code));
-        githubOAuthService.getOAuthUser(accessToken);
-        return "index";
+        GithubUser githubUser = githubOAuthService.getOAuthUser(accessToken);
+        User user = userService.getByDriver("github", githubUser.id);
+
+        if (user == null) {
+            return userNotFound(githubUser);
+        } else {
+            return "index";
+        }
+    }
+
+    private String userNotFound(GithubUser githubUser) {
+        return constants.signupUrl(githubUser);
     }
 }

@@ -46,4 +46,5 @@ dependencies {
     compile("mysql:mysql-connector-java:5.1.40")
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.2.0")
     compile("com.github.pagehelper:pagehelper-spring-boot-starter:1.1.0")
+    compile("com.google.code.gson:gson:2.8.1")
 }

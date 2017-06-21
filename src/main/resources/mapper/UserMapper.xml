@@ -6,5 +6,13 @@
       name = #{name}
     </where>
   </select>
+
+
+  <select id="getByGithubId" resultType="com.zzt.daily.mapper.User">
+    select * from users
+    <where>
+      github_id = #{github_id}
+    </where>
+  </select>
 </mapper>
 

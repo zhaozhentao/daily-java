@@ -51,6 +51,5 @@ public abstract class OAuthServiceDeractor implements OAuthService {
         return authorizationUrl;
     }
     
-    public abstract String getOAuthUser(Token accessToken);
-
+    public abstract Object getOAuthUser(Token accessToken);
 }
