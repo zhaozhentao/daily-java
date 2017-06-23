@@ -24,7 +24,7 @@ public class Constants {
 
     public String GithubRedirectUrl() {
         return "redirect:https://github.com/login/oauth/authorize?client_id=" + githubClientId +
-            "&redirect_uri=" + backEndUrl + state;
+            "&redirect_uri=" + backEndUrl;
     }
 
     public String signupUrl() {
