@@ -9,10 +9,7 @@ import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -35,7 +32,7 @@ public class AuthController {
         return constants.GithubRedirectUrl();
     }
 
-    @RequestMapping(value = "/oauth/github/callback", method = RequestMethod.GET)
+    @GetMapping("/oauth/github/callback")
     public ModelAndView callback(@RequestParam(value = "code") String code) {
         Token accessToken = githubOAuthService.getAccessToken(null, new Verifier(code));
         GithubUser githubUser = githubOAuthService.getOAuthUser(accessToken);
@@ -53,7 +50,7 @@ public class AuthController {
         modelAndView.addObject("image_url", githubUser.avatar_url);
         modelAndView.addObject("github_id", githubUser.id);
         modelAndView.addObject("github_url", githubUser.url);
-        modelAndView.addObject("github_name", githubUser.name);
+        modelAndView.addObject("github_name", githubUser.login);
         modelAndView.addObject("name", githubUser.name);
         modelAndView.addObject("email", githubUser.email);
         return modelAndView;
