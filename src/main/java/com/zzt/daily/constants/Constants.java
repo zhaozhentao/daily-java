@@ -16,12 +16,15 @@ public class Constants {
     @Value("${oAuth.github.state}")
     String state;
 
+    @Value("${font_end_url}")
+    String fontEndUrl;
+
     public String GithubRedirectUrl() {
         return "redirect:https://github.com/login/oauth/authorize?client_id=" + githubClientId +
             "&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth%2Fgithub%2Fcallback&state=" + state;
     }
 
     public String signupUrl() {
-        return "redirect:http://localhost:8082/signup";
+        return "redirect:" + fontEndUrl + "/signup";
     }
 }

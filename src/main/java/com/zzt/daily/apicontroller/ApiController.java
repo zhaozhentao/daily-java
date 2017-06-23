@@ -20,8 +20,7 @@ public class ApiController {
 
     @GetMapping("/my")
     public String home() {
-        User u = userMapper.findByName("suyingwen");
-        return u.toString();
+        return "my";
     }
 
     @PostMapping("/signup")
