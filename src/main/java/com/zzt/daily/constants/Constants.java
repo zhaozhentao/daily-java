@@ -19,9 +19,12 @@ public class Constants {
     @Value("${font_end_url}")
     String fontEndUrl;
 
+    @Value("${back_end_url}")
+    String backEndUrl;
+
     public String GithubRedirectUrl() {
         return "redirect:https://github.com/login/oauth/authorize?client_id=" + githubClientId +
-            "&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Foauth%2Fgithub%2Fcallback&state=" + state;
+            "&redirect_uri=" + backEndUrl + state;
     }
 
     public String signupUrl() {
