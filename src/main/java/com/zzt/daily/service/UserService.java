@@ -2,7 +2,10 @@ package com.zzt.daily.service;
 
 import com.zzt.daily.mapper.User;
 import com.zzt.daily.mapper.UserMapper;
+import com.zzt.daily.requests.StoreUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,6 +13,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService {
+
+    @Value("${encode.secret}")
+    String secret;
 
     @Autowired
     UserMapper userMapper;
@@ -22,5 +28,12 @@ public class UserService {
                 break;
         }
         return user;
+    }
+
+    public int create(StoreUserRequest request) {
+        StandardPasswordEncoder encoder = new StandardPasswordEncoder(secret);
+        request.password = encoder.encode(request.password);
+        System.out.println("password length:" + request.password.length());
+        return userMapper.create(request);
     }
 }

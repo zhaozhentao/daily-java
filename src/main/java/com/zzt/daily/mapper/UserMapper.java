@@ -1,5 +1,6 @@
 package com.zzt.daily.mapper;
 
+import com.zzt.daily.requests.StoreUserRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserMapper {
 
-    User findByName(@Param("name") String name);
-
     User getByGithubId(@Param("github_id") int githubId);
+
+    int create(@Param("request") StoreUserRequest request);
 }

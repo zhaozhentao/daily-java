@@ -4,13 +4,18 @@ import com.zzt.daily.OAuth.github.GithubOAuthService;
 import com.zzt.daily.OAuth.github.GithubUser;
 import com.zzt.daily.constants.Constants;
 import com.zzt.daily.mapper.User;
+import com.zzt.daily.requests.StoreUserRequest;
 import com.zzt.daily.service.UserService;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 /**
  * Created by zhaotao on 2017/6/20.
@@ -54,5 +59,15 @@ public class AuthController {
         modelAndView.addObject("name", githubUser.name);
         modelAndView.addObject("email", githubUser.email);
         return modelAndView;
+    }
+
+    @ResponseBody
+    @PostMapping("/api/signup")
+    public Object store(@Valid StoreUserRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.status(400).body(bindingResult.getAllErrors().get(0));
+        }
+
+        return userService.create(request);
     }
 }

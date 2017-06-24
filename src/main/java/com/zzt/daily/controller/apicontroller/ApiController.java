@@ -1,10 +1,8 @@
-package com.zzt.daily.apicontroller;
+package com.zzt.daily.controller.apicontroller;
 
-import com.zzt.daily.mapper.User;
 import com.zzt.daily.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +20,4 @@ public class ApiController {
     public String home() {
         return "my";
     }
-
-    @PostMapping("/signup")
-    public String signup() {
-        return "ok";
-    }
-
 }
