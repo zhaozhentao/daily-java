@@ -21,9 +21,8 @@ public class UserController {
     private UserMapper userMapper;
 
     @GetMapping("/user")
-    public String show(HttpServletRequest request) {
-//        JwtUser userDetails = (JwtUser) request.getAttribute("loginUser");
-//        return userDetails.getUser();
-        return "ok";
+    public User show(HttpServletRequest request) {
+        JwtUser userDetails = (JwtUser) request.getAttribute("loginUser");
+        return userDetails.getUser();
     }
 }
