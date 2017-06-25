@@ -9,14 +9,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
-    private Long id;
-    private String name;
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            '}';
-    }
+    public long id;
+
+    public String name;
+
+    public String github_name;
+
+    public String image_url;
+
+    public String avatar;
 }

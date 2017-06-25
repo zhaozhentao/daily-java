@@ -14,8 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Created by zhaotao on 2017/6/20.
@@ -38,7 +44,7 @@ public class AuthController {
     }
 
     @GetMapping("/oauth/github/callback")
-    public ModelAndView callback(@RequestParam(value = "code") String code) {
+    public ModelAndView callback(@RequestParam(value = "code") String code, HttpServletResponse response) {
         Token accessToken = githubOAuthService.getAccessToken(null, new Verifier(code));
         GithubUser githubUser = githubOAuthService.getOAuthUser(accessToken);
         User user = userService.getByDriver("github", githubUser.id);
@@ -46,8 +52,20 @@ public class AuthController {
         if (user == null) {
             return userNotFound(githubUser);
         } else {
-            return null;
+            Cookie cookie = new Cookie("cookie1", "value1");
+            System.out.println("set setset");
+            cookie.setMaxAge(1000000);
+            cookie.setPath("/");
+            cookie.setSecure(false);
+            cookie.setDomain("xiaotaotao.me");
+            response.addCookie(cookie);
+            return userFounded(user);
         }
+    }
+
+    private ModelAndView userFounded(User user) {
+        ModelAndView modelAndView = new ModelAndView(constants.homeUrl());
+        return modelAndView;
     }
 
     private ModelAndView userNotFound(GithubUser githubUser) {
@@ -63,7 +81,7 @@ public class AuthController {
 
     @ResponseBody
     @PostMapping("/api/signup")
-    public Object store(@Valid StoreUserRequest request, BindingResult bindingResult) {
+    public Object store(@RequestBody @Valid StoreUserRequest request, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(400).body(bindingResult.getAllErrors().get(0));
         }
