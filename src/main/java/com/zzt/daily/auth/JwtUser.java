@@ -1,5 +1,6 @@
 package com.zzt.daily.auth;
 
+import com.zzt.daily.mapper.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -14,26 +15,25 @@ import java.util.Collection;
 @Setter
 public class JwtUser implements UserDetails {
 
-    private final long id;
-    private final String username;
-    private final String password;
-    private final int github_id;
+    private User user;
 
-    public JwtUser(
-        long id,
-        String username,
-        String password,
-        int github_id
-    ) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.github_id = github_id;
+    public JwtUser(User user) {
+        this.user = user;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return user.getName();
     }
 
     @Override

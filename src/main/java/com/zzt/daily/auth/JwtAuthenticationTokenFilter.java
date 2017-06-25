@@ -1,7 +1,5 @@
 package com.zzt.daily.auth;
 
-import com.zzt.daily.mapper.User;
-import com.zzt.daily.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,12 +44,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             String name = jwtToken.getUsernameFromToken(authToken);
             if (name != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(name);
+                request.setAttribute("loginUser", userDetails);
 
                 if (jwtToken.validateToken(authToken, userDetails.getUsername())) {
-                    UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
-                    authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                    UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, userDetails.getAuthorities());
+                    token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(token);
                 }
             }
         }
