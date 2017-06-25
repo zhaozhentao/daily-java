@@ -27,6 +27,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.html",
                 "/**/*.css",
                 "/**/*.png",
+                "/**/*.jpeg",
                 "/**/*.json",
                 "/**/*.js"
             ).permitAll()

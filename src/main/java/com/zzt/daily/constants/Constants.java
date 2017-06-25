@@ -30,4 +30,8 @@ public class Constants {
     public String signupUrl() {
         return "redirect:" + fontEndUrl + "/signup";
     }
+
+    public String homeUrl() {
+        return "redirect:" + fontEndUrl;
+    }
 }
