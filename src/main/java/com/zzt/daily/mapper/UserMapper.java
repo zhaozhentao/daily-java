@@ -10,6 +10,10 @@ import org.springframework.stereotype.Component;
 @Component
 public interface UserMapper {
 
+    User findById(@Param("id") int id);
+
+    User findByName(@Param("name") String name);
+
     User getByGithubId(@Param("github_id") int githubId);
 
     int create(@Param("request") StoreUserRequest request);

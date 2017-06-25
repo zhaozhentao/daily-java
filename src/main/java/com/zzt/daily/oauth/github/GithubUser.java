@@ -1,4 +1,4 @@
-package com.zzt.daily.OAuth.github;
+package com.zzt.daily.oauth.github;
 
 /**
  * Created by zhaotao on 2017/6/21.

@@ -1,27 +1,25 @@
 package com.zzt.daily.controller;
 
-import com.zzt.daily.OAuth.github.GithubOAuthService;
-import com.zzt.daily.OAuth.github.GithubUser;
+import com.zzt.daily.oauth.github.GithubOAuthService;
+import com.zzt.daily.oauth.github.GithubUser;
 import com.zzt.daily.constants.Constants;
 import com.zzt.daily.mapper.User;
 import com.zzt.daily.requests.StoreUserRequest;
+import com.zzt.daily.service.AuthService;
 import com.zzt.daily.service.UserService;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * Created by zhaotao on 2017/6/20.
@@ -38,6 +36,12 @@ public class AuthController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    AuthService authService;
+
+    @Value("${jwt.expiration}")
+    int expiration;
+
     @GetMapping("/auth/oauth")
     public String oauthLogin() {
         return constants.GithubRedirectUrl();
@@ -52,19 +56,17 @@ public class AuthController {
         if (user == null) {
             return userNotFound(githubUser);
         } else {
-            Cookie cookie = new Cookie("cookie1", "value1");
-            System.out.println("set setset");
-            cookie.setMaxAge(1000000);
-            cookie.setPath("/");
-            cookie.setSecure(false);
-            cookie.setDomain("xiaotaotao.me");
-            response.addCookie(cookie);
-            return userFounded(user);
+            return userFounded(user, response);
         }
     }
 
-    private ModelAndView userFounded(User user) {
+    private ModelAndView userFounded(User user, HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView(constants.homeUrl());
+        Cookie cookie = new Cookie("token", authService.login(user));
+        cookie.setMaxAge(expiration);
+        cookie.setDomain("localhost");
+        cookie.setPath("/");
+        response.addCookie(cookie);
         return modelAndView;
     }
 

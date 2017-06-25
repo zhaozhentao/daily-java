@@ -8,7 +8,6 @@
     </where>
   </select>
 
-
   <select id="getByGithubId" resultType="com.zzt.daily.mapper.User">
     select * from users
     <where>

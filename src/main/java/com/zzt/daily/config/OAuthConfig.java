@@ -1,7 +1,7 @@
 package com.zzt.daily.config;
 
-import com.zzt.daily.OAuth.github.GithubApi;
-import com.zzt.daily.OAuth.github.GithubOAuthService;
+import com.zzt.daily.oauth.github.GithubApi;
+import com.zzt.daily.oauth.github.GithubOAuthService;
 import org.scribe.builder.ServiceBuilder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

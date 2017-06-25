@@ -1,4 +1,4 @@
-package com.zzt.daily.OAuth.github;
+package com.zzt.daily.oauth.github;
 
 import org.scribe.builder.api.DefaultApi20;
 import org.scribe.model.OAuthConfig;

@@ -1,8 +1,8 @@
-package com.zzt.daily.OAuth.github;
+package com.zzt.daily.oauth.github;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.zzt.daily.OAuth.OAuthServiceDeractor;
+import com.zzt.daily.oauth.OAuthServiceDeractor;
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;

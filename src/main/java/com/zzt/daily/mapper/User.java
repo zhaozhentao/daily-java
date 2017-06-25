@@ -10,13 +10,29 @@ import lombok.Setter;
 @Setter
 public class User {
 
-    public long id;
+    public int id;
 
     public String name;
+
+    public int github_id;
 
     public String github_name;
 
     public String image_url;
 
     public String avatar;
+
+    public String password;
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "id=" + id +
+            ", name='" + name + '\'' +
+            ", github_name='" + github_name + '\'' +
+            ", image_url='" + image_url + '\'' +
+            ", avatar='" + avatar + '\'' +
+            ", password='" + password + '\'' +
+            '}';
+    }
 }

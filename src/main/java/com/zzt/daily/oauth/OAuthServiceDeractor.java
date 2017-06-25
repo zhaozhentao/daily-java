@@ -1,4 +1,4 @@
-package com.zzt.daily.OAuth;
+package com.zzt.daily.oauth;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Token;
