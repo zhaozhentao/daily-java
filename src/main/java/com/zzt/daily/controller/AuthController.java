@@ -27,6 +27,9 @@ import javax.validation.Valid;
 @Controller
 public class AuthController {
 
+    @Value("${domain}")
+    String domain;
+
     @Autowired
     Constants constants;
 
@@ -64,7 +67,7 @@ public class AuthController {
         ModelAndView modelAndView = new ModelAndView(constants.homeUrl());
         Cookie cookie = new Cookie("token", authService.login(user));
         cookie.setMaxAge(expiration);
-        cookie.setDomain("localhost");
+        cookie.setDomain(domain);
         cookie.setPath("/");
         response.addCookie(cookie);
         return modelAndView;
