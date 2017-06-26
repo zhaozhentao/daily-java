@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/**/*.js"
             ).permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**/**").permitAll()
-            .antMatchers("/auth/oauth", "/oauth/github/callback", "/api/signup").permitAll()
+            .antMatchers("/api/auth/oauth", "/oauth/github/callback", "/api/signup").permitAll()
             .anyRequest().authenticated();
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }

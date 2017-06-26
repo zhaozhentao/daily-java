@@ -45,7 +45,7 @@ public class AuthController {
     @Value("${jwt.expiration}")
     int expiration;
 
-    @GetMapping("/auth/oauth")
+    @GetMapping("/api/auth/oauth")
     public String oauthLogin() {
         return constants.GithubRedirectUrl();
     }
