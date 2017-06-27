@@ -50,7 +50,7 @@ public class AuthController {
         return constants.GithubRedirectUrl();
     }
 
-    @GetMapping("/oauth/github/callback")
+    @GetMapping("/api/oauth/github/callback")
     public ModelAndView callback(@RequestParam(value = "code") String code, HttpServletResponse response) {
         Token accessToken = githubOAuthService.getAccessToken(null, new Verifier(code));
         GithubUser githubUser = githubOAuthService.getOAuthUser(accessToken);
@@ -91,6 +91,11 @@ public class AuthController {
             return ResponseEntity.status(400).body(bindingResult.getAllErrors().get(0));
         }
 
-        return userService.create(request);
+        if (userService.create(request) > 0) {
+            User user = userService.getByDriver("github", request.github_id);
+            return authService.login(user);
+        } else {
+            return ResponseEntity.badRequest().body("创建用户失败");
+        }
     }
 }

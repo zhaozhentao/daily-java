@@ -20,7 +20,7 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public User getByDriver(String driver, int id) {
+    public User getByDriver(String driver, long id) {
         User user = null;
         switch (driver) {
             case "github":
@@ -33,7 +33,6 @@ public class UserService {
     public int create(StoreUserRequest request) {
         StandardPasswordEncoder encoder = new StandardPasswordEncoder(secret);
         request.password = encoder.encode(request.password);
-        System.out.println("password length:" + request.password.length());
         return userMapper.create(request);
     }
 }

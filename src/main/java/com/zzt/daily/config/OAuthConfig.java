@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OAuthConfig {
     
-    private static final String CALLBACK_URL = "%s/oauth/%s/callback";
+    private static final String CALLBACK_URL = "%s/api/oauth/%s/callback";
     
     @Value("${oAuth.github.state}") String state;
     @Value("${oAuth.github.clientId}") String githubClientId;

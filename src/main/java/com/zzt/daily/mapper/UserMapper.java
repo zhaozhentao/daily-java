@@ -14,7 +14,7 @@ public interface UserMapper {
 
     User findByName(@Param("name") String name);
 
-    User getByGithubId(@Param("github_id") int githubId);
+    User getByGithubId(@Param("github_id") long githubId);
 
     int create(@Param("request") StoreUserRequest request);
 }
