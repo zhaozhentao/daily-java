@@ -22,6 +22,9 @@ public class BlogController {
     @Value("${upload_image_path}")
     String folder;
 
+    @Value("${system_path}")
+    String system_path;
+
     @Value("${public_path}")
     String public_path;
 
@@ -29,8 +32,8 @@ public class BlogController {
     public Object uploadImage(@RequestParam(value = "file") MultipartFile file) {
         if (!file.isEmpty()) {
             try {
-                String fileName = folder + System.currentTimeMillis() + "_" + file.getOriginalFilename();
-                File localFile = new File(fileName);
+                String localFileName = folder + System.currentTimeMillis() + "_" + file.getOriginalFilename();
+                File localFile = new File(system_path + localFileName);
                 if (!localFile.getParentFile().exists()) {
                     localFile.getParentFile().mkdirs();
                 }
@@ -45,7 +48,7 @@ public class BlogController {
                 outputStream.close();
                 inputStream.close();
                 HashMap<String, String> body = new HashMap<>();
-                body.put("filename", public_path + fileName);
+                body.put("filename", public_path + localFileName);
                 return body;
             } catch (Exception e) {
                 return "lkjsdf";
