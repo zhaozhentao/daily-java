@@ -50,4 +50,6 @@ dependencies {
 
     compile 'io.jsonwebtoken:jjwt:0.7.0'
     compile("org.springframework.boot:spring-boot-starter-security")
+
+    compile 'com.vladsch.flexmark:flexmark-all:0.20.0'//markdown
 }

@@ -1,6 +1,6 @@
 package com.zzt.daily.service;
 
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 import com.zzt.daily.mapper.UserMapper;
 import com.zzt.daily.requests.StoreUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;

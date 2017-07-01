@@ -1,4 +1,4 @@
-package com.zzt.daily.mapper;
+package com.zzt.daily.model;
 
 import lombok.Getter;
 import lombok.Setter;

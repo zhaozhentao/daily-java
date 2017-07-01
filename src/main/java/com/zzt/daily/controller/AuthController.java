@@ -3,7 +3,7 @@ package com.zzt.daily.controller;
 import com.zzt.daily.oauth.github.GithubOAuthService;
 import com.zzt.daily.oauth.github.GithubUser;
 import com.zzt.daily.constants.Constants;
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 import com.zzt.daily.requests.StoreUserRequest;
 import com.zzt.daily.service.AuthService;
 import com.zzt.daily.service.UserService;

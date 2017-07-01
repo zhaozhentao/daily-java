@@ -1,0 +1,52 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzt.daily.mapper.BlogMapper">
+  <sql id="key">
+    <trim suffixOverrides=",">
+      <if test="blog.title != null">
+        title,
+      </if>
+      <if test="blog.user_id != null">
+        user_id,
+      </if>
+      <if test="blog.body != null">
+        body,
+      </if>
+      <if test="blog.body_original != null">
+        body_original,
+      </if>
+      <if test="blog.created_at != null">
+        created_at,
+      </if>
+      <if test="blog.is_excellent != null">
+        is_excellent,
+      </if>
+    </trim>
+  </sql>
+
+  <sql id="value">
+    <trim suffixOverrides=",">
+      <if test="blog.title != null">
+        #{blog.title},
+      </if>
+      <if test="blog.user_id != null">
+        #{blog.user_id},
+      </if>
+      <if test="blog.body != null">
+        #{blog.body},
+      </if>
+      <if test="blog.body_original != null">
+        #{blog.body_original},
+      </if>
+      <if test="blog.created_at != null">
+        #{blog.created_at},
+      </if>
+      <if test="blog.is_excellent != null">
+        #{blog.is_excellent},
+      </if>
+    </trim>
+  </sql>
+
+  <insert id="create" parameterType="com.zzt.daily.model.Blog" useGeneratedKeys="true" keyProperty="blog.id">
+    insert into blogs (<include refid="key"></include>) values (<include refid="value"></include>)
+  </insert>
+</mapper>

@@ -1,6 +1,6 @@
 package com.zzt.daily.auth;
 
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 
 public final class JwtUserFactory {
 

@@ -1,6 +1,6 @@
 package com.zzt.daily.auth;
 
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 import com.zzt.daily.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

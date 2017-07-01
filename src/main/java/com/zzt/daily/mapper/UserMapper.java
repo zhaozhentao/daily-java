@@ -1,5 +1,6 @@
 package com.zzt.daily.mapper;
 
+import com.zzt.daily.model.User;
 import com.zzt.daily.requests.StoreUserRequest;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;

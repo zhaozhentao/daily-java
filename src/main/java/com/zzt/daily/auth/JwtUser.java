@@ -1,6 +1,6 @@
 package com.zzt.daily.auth;
 
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;

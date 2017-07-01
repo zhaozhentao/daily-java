@@ -1,15 +1,24 @@
 package com.zzt.daily.controller.apicontroller;
 
+import com.zzt.daily.auth.JwtUser;
+import com.zzt.daily.helper.Markdown;
+import com.zzt.daily.mapper.BlogMapper;
+import com.zzt.daily.model.Blog;
+import com.zzt.daily.requests.StoreBlogRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -27,6 +36,9 @@ public class BlogController {
 
     @Value("${public_path}")
     String public_path;
+
+    @Autowired
+    BlogMapper blogMapper;
 
     @PostMapping("/upload_image")
     public Object uploadImage(@RequestParam(value = "file") MultipartFile file) {
@@ -55,6 +67,25 @@ public class BlogController {
             }
         } else {
             return "lksdf";
+        }
+    }
+
+    @PostMapping("/blogs")
+    public Object store(@RequestBody @Valid StoreBlogRequest storeBlogRequest, HttpServletRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body("bad");
+        }
+
+        Blog blog = new Blog();
+        blog.title = storeBlogRequest.title;
+        blog.user_id = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
+        blog.body = Markdown.convertMarkdownToHtml(storeBlogRequest.body);
+        blog.body_original = storeBlogRequest.body;
+        blog.created_at = new Date();
+        if (blogMapper.create(blog) > 0) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(blog);
+        } else {
+            return ResponseEntity.badRequest().body("failed");
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.zzt.daily.service;
 
 import com.zzt.daily.auth.JwtToken;
-import com.zzt.daily.mapper.User;
+import com.zzt.daily.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
