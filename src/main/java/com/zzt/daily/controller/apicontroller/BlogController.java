@@ -4,6 +4,8 @@ import com.zzt.daily.auth.JwtUser;
 import com.zzt.daily.helper.Markdown;
 import com.zzt.daily.mapper.BlogMapper;
 import com.zzt.daily.model.Blog;
+import com.zzt.daily.model.User;
+import com.zzt.daily.requests.PageValidator;
 import com.zzt.daily.requests.StoreBlogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +20,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -96,5 +99,12 @@ public class BlogController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
         }
         return blog;
+    }
+
+    @GetMapping("/blogs")
+    public Object index(@Valid PageValidator pageValidator, HttpServletRequest request) {
+        int userId = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
+        ArrayList<Blog> blogs = blogMapper.findByUserId(userId, pageValidator.getOffset(), pageValidator.perPage);
+        return blogs;
     }
 }

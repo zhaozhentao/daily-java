@@ -56,4 +56,12 @@
       id = #{id}
     </where>
   </select>
+
+  <select id="findByUserId" resultType="com.zzt.daily.model.Blog">
+    select * from blogs
+    <where>
+      user_id = #{user_id}
+    </where>
+    limit #{offset}, #{per_page}
+  </select>
 </mapper>
