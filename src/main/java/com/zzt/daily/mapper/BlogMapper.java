@@ -11,4 +11,6 @@ import org.springframework.stereotype.Component;
 public interface BlogMapper {
 
     int create(@Param("blog") Blog blog);
+
+    Blog findById(@Param("id") int id);
 }

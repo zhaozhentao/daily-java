@@ -49,4 +49,11 @@
   <insert id="create" parameterType="com.zzt.daily.model.Blog" useGeneratedKeys="true" keyProperty="blog.id">
     insert into blogs (<include refid="key"></include>) values (<include refid="value"></include>)
   </insert>
+
+  <select id="findById" parameterType="integer" resultType="com.zzt.daily.model.Blog">
+    select * from blogs
+    <where>
+      id = #{id}
+    </where>
+  </select>
 </mapper>

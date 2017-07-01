@@ -88,4 +88,13 @@ public class BlogController {
             return ResponseEntity.badRequest().body("failed");
         }
     }
+
+    @GetMapping("/blogs/{id}")
+    public Object show(@PathVariable(name = "id") int id) {
+        Blog blog = blogMapper.findById(id);
+        if (blog == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("not found");
+        }
+        return blog;
+    }
 }
