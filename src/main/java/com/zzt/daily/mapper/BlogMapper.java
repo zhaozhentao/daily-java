@@ -17,4 +17,6 @@ public interface BlogMapper {
     Blog findById(@Param("id") int id);
 
     ArrayList<Blog> findByUserId(@Param("user_id") int user_id, @Param("offset") int offset, @Param("per_page") int per_page);
+
+    int deleteById(@Param("id") int id);
 }

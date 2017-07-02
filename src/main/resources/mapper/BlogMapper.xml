@@ -64,4 +64,11 @@
     </where>
     limit #{offset}, #{per_page}
   </select>
+
+  <delete id="deleteById">
+    DELETE FROM blogs
+    <where>
+      id = #{id}
+    </where>
+  </delete>
 </mapper>

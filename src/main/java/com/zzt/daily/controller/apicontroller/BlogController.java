@@ -4,7 +4,6 @@ import com.zzt.daily.auth.JwtUser;
 import com.zzt.daily.helper.Markdown;
 import com.zzt.daily.mapper.BlogMapper;
 import com.zzt.daily.model.Blog;
-import com.zzt.daily.model.User;
 import com.zzt.daily.requests.PageValidator;
 import com.zzt.daily.requests.StoreBlogRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +105,21 @@ public class BlogController {
         int userId = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
         ArrayList<Blog> blogs = blogMapper.findByUserId(userId, pageValidator.getOffset(), pageValidator.perPage);
         return blogs;
+    }
+
+    @DeleteMapping("/blogs/{id}")
+    public Object destroy(@PathVariable(name = "id") int id, HttpServletRequest request) {
+        int userId = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
+        Blog blog = blogMapper.findById(id);
+        if (blog == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("不存在的");
+        }
+
+        if (blog.user_id == userId) {
+            blogMapper.deleteById(id);
+            return "ok";
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("只能删除自己的blog");
+        }
     }
 }
