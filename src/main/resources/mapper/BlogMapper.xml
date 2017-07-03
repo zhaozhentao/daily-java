@@ -71,4 +71,21 @@
       id = #{id}
     </where>
   </delete>
+
+
+  <update id="update" parameterType="com.zzt.daily.model.Blog">
+    UPDATE blogs SET
+    <trim suffixOverrides=",">
+      <if test="blog.title != null">
+        title = #{blog.title},
+      </if>
+      <if test="blog.body != null">
+        body = #{blog.body},
+      </if>
+      <if test="blog.body_original != null">
+        body_original = #{blog.body_original},
+      </if>
+    </trim>
+    WHERE id = #{blog.id}
+  </update>
 </mapper>

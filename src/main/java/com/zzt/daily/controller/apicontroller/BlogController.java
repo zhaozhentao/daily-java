@@ -122,4 +122,23 @@ public class BlogController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("只能删除自己的blog");
         }
     }
+
+    @PutMapping("/blogs/{id}")
+    public Object update(@PathVariable(name = "id") int id, @RequestBody @Valid StoreBlogRequest storeBlogRequest, HttpServletRequest request) {
+        int userId = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
+        Blog blog = blogMapper.findById(id);
+        if (blog == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("不存在的");
+        }
+
+        if (blog.user_id == userId) {
+            blog.title = storeBlogRequest.title;
+            blog.body_original = storeBlogRequest.body;
+            blog.body = Markdown.convertMarkdownToHtml(storeBlogRequest.body);
+            blogMapper.update(blog);
+            return blog;
+        } else {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("只有能修改自己的blog");
+        }
+    }
 }
