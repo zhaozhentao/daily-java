@@ -102,8 +102,7 @@ public class BlogController {
 
     @GetMapping("/blogs")
     public Object index(@Valid PageValidator pageValidator, HttpServletRequest request) {
-        int userId = ((JwtUser) request.getAttribute("loginUser")).getUser().id;
-        ArrayList<Blog> blogs = blogMapper.findByUserId(userId, pageValidator.getOffset(), pageValidator.perPage);
+        ArrayList<Blog> blogs = blogMapper.findByUserId(1, pageValidator.getOffset(), pageValidator.perPage);// 1 is the owner of the project
         return blogs;
     }
 

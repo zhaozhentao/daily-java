@@ -41,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             ).permitAll()
             .antMatchers(HttpMethod.OPTIONS, "/**/**").permitAll()
             .antMatchers(
+                "/api/blogs",
                 "/api/auth/oauth",
                 "/api/oauth/github/callback",
                 "/api/signup",
